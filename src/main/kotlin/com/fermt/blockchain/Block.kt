@@ -27,13 +27,12 @@ class Block(private val prevHash: String){
     }
 
     fun addTransaction(transaction: Transaction): Boolean {
-        if(transaction == null) return false
-        if(prevHash != "0") {
+        //if(prevHash != "0") {
             if(transaction.processTransaction() != true){
                 println("Transaction failed to process. Discarded")
                 return false
             }
-        }
+        //}
         transactions.add(transaction)
         println("Transaction successfully added to block")
         return true

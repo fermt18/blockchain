@@ -2,6 +2,7 @@ package com.fermt.blockchain
 
 import java.math.BigInteger
 import java.security.*
+import java.security.spec.ECGenParameterSpec
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -50,13 +51,15 @@ class HashUtils {
                 ecdsaVerify.update(data.toByteArray())
                 ecdsaVerify.verify(signature)
             } catch (e: java.lang.Exception) {
-                throw RuntimeException(e)
+                return false
             }
         }
 
-
         fun getDifficultyString(difficulty: Int): String {
-            return CharArray(difficulty).toString().replace("\\0", "0")
+            var diffArray = ""
+            for(i in 0 until difficulty)
+                diffArray += "0"
+            return diffArray
         }
 
         fun getStringFromKey(key: Key): String? {
@@ -80,6 +83,15 @@ class HashUtils {
                 previousTreeLayer = treeLayer
             }
             return if(treeLayer.size == 1) treeLayer.get(0) else ""
+        }
+
+        fun generateKeyPair(): KeySet {
+            val keyGen = KeyPairGenerator.getInstance("ECDSA", "BC")
+            val random = SecureRandom.getInstance("SHA1PRNG")
+            val ecSpec = ECGenParameterSpec("prime192v1")
+            keyGen.initialize(ecSpec, random)
+            val keyPair = keyGen.generateKeyPair()
+            return KeySet(keyPair.private, keyPair.public)
         }
     }
 }

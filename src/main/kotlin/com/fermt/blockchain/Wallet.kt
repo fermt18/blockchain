@@ -1,6 +1,7 @@
 package com.fermt.blockchain
 
-import com.fermt.blockchain.NoobChain.Companion.UTXOs
+import NoobChain.Companion.UTXOs
+import com.fermt.blockchain.HashUtils.Companion.generateKeyPair
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
 import java.security.PublicKey
@@ -10,21 +11,13 @@ import java.security.spec.ECGenParameterSpec
 
 class Wallet {
 
-    lateinit var privateKey: PrivateKey
-    lateinit var publicKey: PublicKey
+    var privateKey: PrivateKey
+    var publicKey: PublicKey
 
     init {
-        generateKeyPair()
-    }
-
-    fun generateKeyPair(){
-        val keyGen = KeyPairGenerator.getInstance("ECDSA", "BC")
-        val random = SecureRandom.getInstance("SHA1PRNG")
-        val ecSpec = ECGenParameterSpec("prime192v1")
-        keyGen.initialize(ecSpec, random)
-        val keyPair = keyGen.generateKeyPair()
-        privateKey = keyPair.private
-        publicKey = keyPair.public
+        val keySet = generateKeyPair()
+        privateKey = keySet.privateKey
+        publicKey = keySet.publicKey
     }
 
     fun getBalance(): Float {

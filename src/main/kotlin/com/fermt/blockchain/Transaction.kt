@@ -19,23 +19,24 @@ class Transaction(
             println("Transaction Signature failed to verify")
             return false
         }
-
+/*
         if (inputs != null) {
             for(i in inputs) {
-                i.UTXO = NoobChain.UTXOs.get(i.transactionOutputId)!!
+                if(NoobChain.UTXOs.get(i.transactionOutputId) != null)
+                    i.UTXO = NoobChain.UTXOs.get(i.transactionOutputId)!!
             }
-        }
-
+        }*/
+/*
         if(getInputsValue() < NoobChain.minimumTransaction) {
             println("Transaction inputs too small: " + getInputsValue())
             return false
         }
-
-        val leftOver = getInputsValue() - value
+*/
+//        val leftOver = getInputsValue() - value
         transactionId = calculateHash()
-        outputs.add(TransactionOutput(recipient, value, transactionId)) // send value to recipient
-        outputs.add(TransactionOutput(sender, leftOver, transactionId)) // send leftover back to sender
-
+//        outputs.add(TransactionOutput(recipient, value, transactionId)) // send value to recipient
+//        outputs.add(TransactionOutput(sender, leftOver, transactionId)) // send leftover back to sender
+/*
         for(o in outputs) {
             NoobChain.UTXOs.put(o.id, o)
         }
@@ -45,7 +46,7 @@ class Transaction(
                 if(i.UTXO == null) continue
                 NoobChain.UTXOs.remove(i.UTXO.id)
             }
-        }
+        }*/
         return true
     }
 
