@@ -87,4 +87,8 @@ class Transaction(
                     java.lang.Float.toString(value) + sequence
         )
     }
+
+    fun isMine(publicKey: PublicKey): Boolean {
+        return publicKey == recipient
+    }
 }

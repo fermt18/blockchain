@@ -1,6 +1,7 @@
 package com.fermt.blockchain
 
 import NoobChain.Companion.UTXOs
+import NoobChain.Companion.UTXs
 import com.fermt.blockchain.HashUtils.Companion.generateKeyPair
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
@@ -22,10 +23,10 @@ class Wallet {
 
     fun getBalance(): Float {
         var total = 0F
-        for(entry in NoobChain.UTXOs.entries){
+        for(entry in NoobChain.UTXs.entries){
             val UTXO = entry.value
             if(UTXO.isMine(publicKey)){
-                UTXOs.put(UTXO.id, UTXO)
+                UTXs.put(UTXO.transactionId, UTXO)
                 total += UTXO.value
             }
         }

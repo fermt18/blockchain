@@ -10,6 +10,7 @@ class NoobChain {
     companion object {
         val blockChain = arrayListOf<Block>()
         val UTXOs = hashMapOf<String, TransactionOutput>()
+        val UTXs = hashMapOf<String, Transaction>()
         val difficulty = 3
 
         fun main() {
